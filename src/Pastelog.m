@@ -43,10 +43,10 @@
     [self submitLogsWithCompletion:^(NSError *error, NSString *urlString) {
         if (!error) {
             sharedManager.gistURL = urlString;
-            sharedManager.submitAlertView = [[UIAlertView alloc]initWithTitle:@"Submit Debug Log" message:@"Bugs can be reported by email or by copying the log in a GitHub Issue (advanced). You can also get the gist link directly in your clipboard." delegate:[self sharedManager] cancelButtonTitle:@"GitHub Issue" otherButtonTitles:@"Email", @"Clipboard", nil];
+            sharedManager.submitAlertView = [[UIAlertView alloc] initWithTitle:@"One More Step" message:@"What would you like to do with the link to your debug log?" delegate:[self sharedManager] cancelButtonTitle:@"Create GitHub Issue" otherButtonTitles:@"Email Link", @"Copy Link", nil];
             [sharedManager.submitAlertView show];
         } else{
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Failed to submit debug log" message:@"The debug log could not be submitted. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Failed to submit debug log" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
     }];
@@ -60,7 +60,7 @@
 
     [self sharedManager].block = block;
 
-    [self sharedManager].loadingAlertView =  [[UIAlertView alloc] initWithTitle:@"Sending debug log ..."
+    [self sharedManager].loadingAlertView =  [[UIAlertView alloc] initWithTitle:@"Sending debug log..."
                                                                          message:nil delegate:self
                                                                cancelButtonTitle:nil
                                                                otherButtonTitles:nil];
